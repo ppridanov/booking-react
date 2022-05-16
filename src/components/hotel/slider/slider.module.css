@@ -1,0 +1,24 @@
+.bgImg {
+  height: 340px;
+  background-size: cover;
+  background-position: center;
+}
+
+.bgImgThumbs {
+  height: 100px;
+  background-size: cover;
+  background-position: center;
+}
+
+@media screen and (max-width: 1024px) {
+  .bgImg {
+    height: 350px;
+    border-radius: 5px;
+  }
+
+  .bgImgThumbs {
+    height: 100px;
+    width: 120px;
+    border-radius: 5px;
+  }
+}

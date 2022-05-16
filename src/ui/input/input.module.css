@@ -1,0 +1,48 @@
+.input {
+    padding: 0 20px;
+    height: 40px;
+    border: 1px solid #c4c5c5;
+    border-radius: 15px;
+    background-color: transparent;
+    width: 260px;
+    box-sizing: border-box;
+    transition: border 0.3s ease;
+}
+
+.input:focus, .input:hover {
+    border: 1px solid #1796d0;
+    outline: none;
+}
+
+.input[disabled], .input:disabled {
+    opacity: 0.6;
+}
+
+.input[disabled]:hover, .input:disabled:hover {
+    border: 1px solid #c4c5c5;
+}
+
+.label {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 20px;
+    cursor: text;
+    transition: all 0.1s ease;
+    line-height: 20px;
+    z-index: -1;
+    font-size: 18px;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.labelFocus {
+    top: 0;
+    width: auto;
+    font-size: 13px;
+    line-height: 15px;
+    color: #8d8d8d;
+    z-index: 1;
+    background: #fff;
+    padding: 0 5px;
+}

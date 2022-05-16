@@ -1,0 +1,165 @@
+.book {
+  width: 850px;
+  margin: auto;
+}
+
+.top.content {
+  padding-top: 70px;
+  display: flex;
+  justify-content: space-between;
+  /* grid-template-columns: 500px 500px; */
+}
+
+.content__left {
+  width: 500px;
+  overflow: hidden;
+  position: relative;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.content__right {
+  padding: 20px;
+  box-shadow: 0 0 25px rgb(0 0 0 / 30%);
+  border-radius: 5px;
+}
+
+label {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.form {
+  flex-direction: column;
+  gap: 10px;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.form__item {
+  margin-right: 0;
+}
+
+.price {
+  margin-bottom: 40px;
+  font-size: 28px;
+}
+
+.button {
+  height: 50px;
+  line-height: 50px;
+}
+
+.descriptionTitle {
+  font-size: 28px;
+  text-align: left;
+}
+
+.descriptionText {
+  text-align: left;
+  font-size: 20px;
+}
+
+.params,
+.descriptionText {
+  margin: 10px 0;
+}
+
+.params__item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.params__item img {
+  width: 25px;
+  margin-right: 10px;
+}
+
+.description {
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 5px;
+  background: rgba(160, 238, 250, 0.05);
+}
+
+.input {
+  width: 280px;
+  box-sizing: border-box;
+}
+
+.form__block {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+#pay .input,
+#pay .button {
+  width: 240px;
+  height: 40px;
+}
+
+#pay .button {
+  line-height: 40px;
+}
+
+.dFlexCentered100 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: auto;
+}
+
+.dFlexCentered100 h1 {
+  font-size: 25px;
+}
+
+@media screen and (max-width: 1024px) {
+  .book {
+    padding: 25px 15px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .content__right {
+    max-width: 100%;
+    margin-bottom: 25px;
+  }
+
+  .top.content {
+    padding-top: 0;
+    flex-direction: column-reverse;
+  }
+
+  .content__left {
+    width: 100%;
+  }
+
+  .dFlexCentered100 h1 {
+    font-size: 18px;
+  }
+
+  .descriptionTitle {
+    font-size: 20px;
+  }
+
+  .descriptionText {
+    font-size: 16px;
+  }
+
+  .price {
+    font-size: 26px;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+
+  .form__item label {
+    margin-bottom: 5px!important;
+    font-size: 18px;
+  }
+}

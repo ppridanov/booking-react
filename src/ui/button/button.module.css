@@ -1,0 +1,23 @@
+.button {
+    width: 260px;
+    height: 40px;
+    border-radius: 25px;
+    border: unset;
+    background: #1796d0;
+    color: white;
+    transition: all .2s ease;
+    font-size: 16px;
+}
+
+.button:hover {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2)
+}
+
+.button:active {
+    background: #1786d0;
+}
+
+.button:disabled, .button[disabled] {
+    opacity: .6;
+    cursor: auto;
+}
