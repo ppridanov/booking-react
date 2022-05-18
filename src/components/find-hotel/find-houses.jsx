@@ -13,7 +13,7 @@ import { CLEAR_FIND_LIST, postFindHouses, SET_END_DATE, SET_START_DATE } from '.
 function FindHouses() {
     const { finded, findRequest, findFailed, startDate, endDate, findEmpty } = useSelector(state => state.findHouses);
     const dispatch = useDispatch();
-
+    
     const handlerOnSubmitForm = (event) => {
         event.preventDefault();
         dispatch({ type: CLEAR_FIND_LIST })
