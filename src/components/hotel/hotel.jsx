@@ -5,7 +5,7 @@ import DatePicker from "react-datepicker";
 import Modal from '../modal/modal';
 import 'swiper/css';
 import Slider from './slider/slider';
-import { getMinPrice, isObjectEmpty, sendData } from '../../helpers/helpers';
+import { getMinPrice, isObjectNotEmpty, sendData } from '../../helpers/helpers';
 import { mainUrl } from '../../helpers/variables';
 import BookForm from './form/book-form';
 import Button from '../../ui/button/button';
@@ -71,7 +71,7 @@ function Hotel() {
                     </>
                 )}
             </div>
-            {(isObjectEmpty(data)) && (
+            {(isObjectNotEmpty(data)) && (
                 <section className={styles.book}>
                     <div className={`${styles.top} ${styles.content}`}>
                         <div className={styles.content__left}>
