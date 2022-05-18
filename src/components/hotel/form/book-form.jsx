@@ -11,6 +11,7 @@ const BookForm = (props) => {
     const [focused, setFocused] = React.useState(false);
 
     const [isError, setIsError] = useState(false);
+    const [messageError, setMessageError] = useState('');
     const [formData, setFormData] = useState({
         arrival_date: formatDate(bookingData.start, 'yyyy-MM-dd'),
         departure_date: formatDate(bookingData.end, 'yyyy-MM-dd'),
@@ -47,9 +48,18 @@ const BookForm = (props) => {
             }
             throw new Error(`Something wrong: ${res.status}`)
         })
-            .then(data => data.status === "ok" ? window.location.href = data.refer : setIsError(true))
+            .then(data => {
+                if (data.status === "ok") {
+                    setMessageError('');
+                    return window.location.href = data.refer;
+                } else {
+                    setIsError(true);
+                    if (data.mess) {
+                        setMessageError(data.mess);
+                    }
+                }
+            })
             .catch(err => {
-                console.log(err);
                 setIsError(true);
             });
     }
@@ -96,7 +106,7 @@ const BookForm = (props) => {
                     <Button>Оплатить</Button>
                 </div>
             </form>
-            {isError && <p className={styles.status} style={{ marginTop: 10 }}>Произошла ошибка. Попробуйте повторить снова или обратитесь к администратору</p>}
+            {isError && <p className={styles.status} style={{ marginTop: 10 }}>{messageError ? messageError : 'Произошла ошибка. Попробуйте повторить снова или обратитесь к администратору'}</p>}
         </>
     )
 }

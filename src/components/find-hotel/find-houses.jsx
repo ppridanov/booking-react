@@ -1,4 +1,4 @@
-import { cropTextLength, declination, formatDate, isObjectEmpty, jsonCustomParser } from '../../helpers/helpers';
+import { cropTextLength, formatDate, isObjectNotEmpty, jsonCustomParser } from '../../helpers/helpers';
 import { Link } from 'react-router-dom';
 import DatePicker from "react-datepicker";
 import ru from 'date-fns/locale/ru';
@@ -67,7 +67,7 @@ function FindHouses() {
                         {findEmpty && !findFailed && !findRequest && (<h1>Ничего не найдено!</h1>)}
                     </div>
                 )}
-                {isObjectEmpty(finded) && finded.map((item, index) => {
+                {isObjectNotEmpty(finded) && finded.map((item, index) => {
                     const images = jsonCustomParser(item.images) || null;
                     return (<div className={styles.card} key={index}>
                         <div className={styles.card__left}>
@@ -83,6 +83,11 @@ function FindHouses() {
                         </div>
                     </div>)
                 })}
+                {!isObjectNotEmpty(finded) && (
+                    <>
+                        <h1>На выбранные вами даты нет свободных мест.<br /><br />Попробуйте повторить поиск на другие даты.</h1>
+                    </>
+                )}
             </div>
         </div>
     );
