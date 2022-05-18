@@ -8,7 +8,7 @@ export const sendData = async (options) => {
     })
 }
 
-export const isObjectEmpty = (obj) => {
+export const isObjectNotEmpty = (obj) => {
     return Object.keys(obj).length !== 0;
 }
 
