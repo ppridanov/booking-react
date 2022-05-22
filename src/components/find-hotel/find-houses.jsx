@@ -11,9 +11,9 @@ import { CLEAR_FIND_LIST, postFindHouses, SET_END_DATE, SET_START_DATE } from '.
 
 
 function FindHouses() {
-    const { finded, findRequest, findFailed, startDate, endDate, findEmpty } = useSelector(state => state.findHouses);
+    const { finded, findRequest, findFailed, findLoaded, startDate, endDate, findEmpty } = useSelector(state => state.findHouses);
     const dispatch = useDispatch();
-    
+
     const handlerOnSubmitForm = (event) => {
         event.preventDefault();
         dispatch({ type: CLEAR_FIND_LIST })
@@ -83,9 +83,14 @@ function FindHouses() {
                         </div>
                     </div>)
                 })}
-                {!isObjectNotEmpty(finded) && (
+                {(!isObjectNotEmpty(finded) && findLoaded) && (
                     <>
                         <h1>На выбранные вами даты нет свободных мест.<br /><br />Попробуйте повторить поиск на другие даты.</h1>
+                    </>
+                )}
+                {!findLoaded && !findFailed && !findRequest && (
+                    <>
+                        <h1>Выберите даты въезда и выезда</h1>
                     </>
                 )}
             </div>

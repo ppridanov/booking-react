@@ -7,7 +7,6 @@ import 'swiper/css/navigation';
 import 'swiper/css';
 
 function Slider(props) {
-
     const images = props.images;
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     return (
@@ -22,7 +21,7 @@ function Slider(props) {
                 {images.map((image, index) => {
                     return (
                         <SwiperSlide key={index}>
-                            <div className={styles.bgImg} style={{ backgroundImage: `url(${image})` }}></div>
+                            <div className={`${styles.bgImg}`} onClick={() => {props.openModal(image)}} style={{ backgroundImage: `url(${image})` }}></div>
                         </SwiperSlide>
                     )
                 })}

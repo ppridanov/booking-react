@@ -4,6 +4,7 @@ import { mainUrl } from "../../helpers/variables";
 export const POST_FIND_REQUEST = 'POST_FIND_REQUEST';
 export const POST_FIND_SUCCESS = 'POST_FIND_SUCCESS';
 export const POST_FIND_FAILED = 'POST_FIND_FAILED';
+export const POST_FIND_LOADED = 'POST_FIND_LOADED';
 export const CLEAR_FIND_LIST = 'CLEAR_FIND_LIST';
 export const SET_START_DATE = 'SET_START_DATE';
 export const SET_END_DATE = 'SET_END_DATE';
@@ -34,6 +35,10 @@ export const postFindHouses = (dates) => {
                     dispatch({
                         type: POST_FIND_SUCCESS,
                         payload: res
+                    })
+                    dispatch({
+                        type: POST_FIND_LOADED,
+                        payload: true
                     })
                 } else if (res.length === 0) {
                     dispatch({

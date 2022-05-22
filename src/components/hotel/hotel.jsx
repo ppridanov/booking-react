@@ -19,6 +19,7 @@ function Hotel() {
     const [isError, setIsError] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [imgModalIsOpen, setImgModalIsOpen] = useState({open: false, imgSrc: ''});
     const [startBookingDate, setStartDate] = useState(startDate);
     const [endBookingDate, setEndDate] = useState(endDate);
     const [peoplesCount, setPeoplesCount] = useState(1);
@@ -56,6 +57,22 @@ function Hotel() {
         setModalIsOpen(false);
     }
 
+    const handleOpenImgModal = (imgSrc) => {
+        setImgModalIsOpen({
+            imgSrc: imgSrc,
+            open: true
+        });
+        console.log(imgSrc);
+    }
+
+    const handleCloseImgModal = (e) => {
+        e.preventDefault();
+        setImgModalIsOpen({
+            imgSrc: '',
+            open: false
+        });
+    }
+
     const handlerOnSubmitForm = (event) => {
         event.preventDefault();
         handleOpenModal(event);
@@ -75,7 +92,7 @@ function Hotel() {
                 <section className={styles.book}>
                     <div className={`${styles.top} ${styles.content}`}>
                         <div className={styles.content__left}>
-                            <Slider images={data.images} />
+                            <Slider images={data.images} openModal={handleOpenImgModal} />
                         </div>
                         <div className={styles.content__right}>
                             <h1 className={styles.price}>Цены от {getMinPrice(data.prices)} р.</h1>
@@ -87,6 +104,7 @@ function Hotel() {
                                         onChange={(date) => setStartDate(date)}
                                         selectsStart
                                         startDate={startBookingDate}
+                                        minDate={startBookingDate}
                                         endDate={endBookingDate}
                                         locale={ru}
                                         required
@@ -124,12 +142,12 @@ function Hotel() {
                                 </div>
                                 <Button type="submit">Бронировать</Button>
                             </form>
-                            <Link to={`/testreact`} style={{ marginTop: 20 }} className='button button-grey'>Вернуться назад</Link>
+                            <Link to={`/`} style={{ marginTop: 20 }} className='button button-grey'>Вернуться назад</Link>
                         </div>
                     </div>
                     <div className={styles.description}>
-                        <h3 class={styles.descriptionTitle}>Описание</h3>
-                        <p class={styles.descriptionText}>
+                        <h3 className={styles.descriptionTitle}>Описание</h3>
+                        <p className={styles.descriptionText}>
                             {data.description}
                         </p>
                     </div>
@@ -139,6 +157,11 @@ function Hotel() {
             {modalIsOpen && (
                 <Modal onClose={handleCloseModal} title={`Бронирование дома №${houseId}`}>
                     <h1><BookForm bookingData={{ start: startBookingDate, end: endBookingDate, peoples: peoplesCount, houseId }} /></h1>
+                </Modal>)
+            }
+            {imgModalIsOpen['open'] && (
+                <Modal onClose={handleCloseImgModal} className='imgModal' colour="#FFFFFF">
+                    <img className={styles.modalImage} src={imgModalIsOpen['imgSrc']} alt="bigImage" />
                 </Modal>)
             }
         </>

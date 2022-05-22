@@ -119,6 +119,11 @@ label {
   font-size: 25px;
 }
 
+.modalImage {
+  width: 90%;
+  height: 90vh;
+}
+
 @media screen and (max-width: 1024px) {
   .book {
     padding: 25px 15px;
@@ -161,5 +166,10 @@ label {
   .form__item label {
     margin-bottom: 5px!important;
     font-size: 18px;
+  }
+
+  .modalImage {
+    width: 100%;
+    height: auto;
   }
 }

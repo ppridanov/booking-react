@@ -2,6 +2,7 @@ import {
     POST_FIND_FAILED,
     POST_FIND_REQUEST,
     POST_FIND_SUCCESS,
+    POST_FIND_LOADED,
     CLEAR_FIND_LIST,
     SET_START_DATE,
     SET_END_DATE,
@@ -15,7 +16,8 @@ const initialState = {
     finded: [],
     startDate: new Date(),
     endDate: new Date(),
-    findEmpty: false
+    findEmpty: false,
+    findLoaded: false
 }
 
 export const findHousesReducer = (state = initialState, action) => {
@@ -37,7 +39,12 @@ export const findHousesReducer = (state = initialState, action) => {
                 finded: action.payload,
                 findRequest: false,
                 findFailed: false,
-                findEmpty: false
+                findEmpty: false,
+            }
+        case POST_FIND_LOADED:
+            return {
+                ...state,
+                findLoaded: action.payload
             }
         case CLEAR_FIND_LIST:
             return {
@@ -48,6 +55,7 @@ export const findHousesReducer = (state = initialState, action) => {
             return {
                 ...state,
                 startDate: action.payload,
+                endDate: action.payload
             }
         case SET_END_DATE:
             return {

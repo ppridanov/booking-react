@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import CloseIcon from '../icons/close/close';
 
 function Modal(props) {
-    const {onClose, children, title} = props;
+    const {onClose, children, title, className, colour} = props;
     const handleEscCloseModal = (e) => {
         if (e.keyCode === 27) {
             onClose(e);
@@ -22,10 +22,10 @@ function Modal(props) {
     return ReactDOM.createPortal(
         <>
             <ModalOverlay onClose={onClose} />
-            <div className={`${modalStyles.modal}`}>
+            <div className={`${modalStyles.modal} ${className}`}>
                 <div className={modalStyles.header}>
                     <h3 className={`${modalStyles.title}`}>{title}</h3>
-                    <div className={modalStyles.close} onClick={onClose}><CloseIcon type={"primary"} /></div>
+                    <div className={modalStyles.close} onClick={onClose}><CloseIcon type={"primary"} colour={colour ? colour : ''}/></div>
                 </div>
                 <div>{children}</div>
             </div>

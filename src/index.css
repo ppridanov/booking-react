@@ -52,7 +52,7 @@ span {
   width: 150px;
 }
 
-input[type="date"i] {
+input[type="date" i] {
   font-family: 'Roboto';
 }
 
@@ -130,9 +130,8 @@ input:hover {
   left: 20px;
   cursor: text;
   transition: all 0.1s ease;
-  line-height: 20px;
   z-index: -1;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
   font-style: normal;
 }
@@ -146,4 +145,66 @@ input:hover {
   z-index: 1;
   background: #fff;
   padding: 0 5px;
+}
+
+.react-datepicker {
+  border: 1px solid #1796d0 !important;
+  border-radius: 15px !important;
+  font-family: 'Roboto' !important;
+  font-size: 18px !important;
+}
+
+.react-datepicker__header {
+  border-top-right-radius: 15px !important;
+  border-top-left-radius: 15px !important;
+}
+
+.react-datepicker__month-container {
+  width: 300px;
+}
+
+.react-datepicker__day-name {
+  font-weight: 700;
+}
+
+.react-datepicker__current-month,
+.react-datepicker-time__header,
+.react-datepicker-year-header {
+  font-size: 18px !important;
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day,
+.react-datepicker__time-name {
+  width: 35px !important;
+  margin: 3px !important;
+  font-size: 18px !important;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--in-selecting-range,
+.react-datepicker__day--in-range,
+.react-datepicker__month-text--selected,
+.react-datepicker__month-text--in-selecting-range,
+.react-datepicker__month-text--in-range,
+.react-datepicker__quarter-text--selected,
+.react-datepicker__quarter-text--in-selecting-range,
+.react-datepicker__quarter-text--in-range,
+.react-datepicker__year-text--selected,
+.react-datepicker__year-text--in-selecting-range,
+.react-datepicker__year-text--in-range {
+  border-radius: 5px!important;
+}
+
+.imgModal {
+  background: transparent!important;
+  box-shadow: unset!important;
+  max-width: initial!important;
+  width: auto!important;
+}
+
+@media screen and (max-width: 768px) {
+  .imgModal {
+    width: 100%!important;
+  }
 }
