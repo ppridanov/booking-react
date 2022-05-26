@@ -193,18 +193,22 @@ input:hover {
 .react-datepicker__year-text--selected,
 .react-datepicker__year-text--in-selecting-range,
 .react-datepicker__year-text--in-range {
-  border-radius: 5px!important;
+  border-radius: 5px !important;
 }
 
 .imgModal {
-  background: transparent!important;
-  box-shadow: unset!important;
-  max-width: initial!important;
-  width: auto!important;
+  background: transparent !important;
+  box-shadow: unset !important;
+  max-width: initial !important;
+  width: auto !important;
+}
+
+.input__full {
+  width: 100%;
 }
 
 @media screen and (max-width: 768px) {
   .imgModal {
-    width: 100%!important;
+    width: 100% !important;
   }
 }

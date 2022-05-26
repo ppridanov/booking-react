@@ -67,23 +67,21 @@ const BookForm = (props) => {
         <>
             <form className={styles.form} onSubmit={handlerOnSubmitForm} id="pay">
                 <div className={styles.formBlock}>
-                    <div className={`${styles.formItem} ${styles.formItemMB}`}>
-                        <Input id="setStartDate" value={formData.arrival_date} name="arrival_date" type="text" readOnly={true} />
+                    <div className={`${`${styles.formItem}`} ${styles.formItemMB}  ${styles.formItemFull}`}>
                         <label htmlFor="setStartDate">Дата заезда</label>
+                        <Input className={styles.inputFull} id="setStartDate" value={formData.arrival_date} name="arrival_date" type="text" readOnly={true} />
                     </div>
-                    <div className={`${styles.formItem} ${styles.formItemMB}`}>
-                        <Input id="setEndDate" value={formData.departure_date} name="departure_date" type="text" readOnly={true} />
+                    <div className={`${`${styles.formItem}`} ${styles.formItemMB}  ${styles.formItemFull}`}>
                         <label htmlFor="setEndDate">Дата выезда</label>
+                        <Input  className={styles.inputFull} id="setEndDate" value={formData.departure_date} name="departure_date" type="text" readOnly={true} />
                     </div>
-                </div>
-                <div className={styles.formBlock}>
-                    <div className={styles.formItem}>
-                        <Input name="senior" type="text" label="ФИО" onChange={handlerOnChangeInput} value={formData.senior} required={true} />
+                    <div className={`${`${styles.formItem} ${styles.formItemFull}`}`}>
+                        <Input className={styles.inputFull} name="senior" type="text" label="ФИО" onChange={handlerOnChangeInput} value={formData.senior} required={true} />
                     </div>
-                    <div className={styles.formItem}>
+                    <div className={`${styles.formItem} ${styles.formItemFull}`}>
                         <label className={`customNumberLabel ${focused && 'customNumberLabelFocus'}`}>Телефон</label>
                         <NumberFormat
-                            className="input"
+                            className="input input__full"
                             type="tel"
                             name="phone"
                             value={formData.phone}
@@ -97,13 +95,13 @@ const BookForm = (props) => {
                         />
                         {/* <Input name="phone" type="tel" label="Телефон" onChange={handlerOnChangeInput} value={formData.phone} required={true} /> */}
                     </div>
-                    <div className={styles.formItem}>
-                        <Input name="email" type="email" label="E-mail" onChange={handlerOnChangeInput} value={formData.email} required={true} />
+                    <div className={`${styles.formItem} ${styles.formItemFull}`}>
+                        <Input className={styles.inputFull} name="email" type="email" label="E-mail" onChange={handlerOnChangeInput} value={formData.email} required={true} />
                     </div>
                     <input id="setPeople" value={formData.peoples} type="hidden" name="people" />
                     <input id="setHouse" value={formData.houseId} type="hidden" name="id" />
 
-                    <Button>Оплатить</Button>
+                    <Button className={styles.buttonFull}>Оплатить</Button>
                 </div>
             </form>
             {isError && <p className={styles.status} style={{ marginTop: 10 }}>{messageError ? messageError : 'Произошла ошибка. Попробуйте повторить снова или обратитесь к администратору'}</p>}
