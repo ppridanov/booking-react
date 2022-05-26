@@ -124,6 +124,17 @@ label {
   height: 90vh;
 }
 
+.icons {
+  margin-top: 10px;
+  display: flex;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.icons svg {
+  width: 30px;
+}
+
 @media screen and (max-width: 1024px) {
   .book {
     padding: 25px 15px;

@@ -20,12 +20,40 @@ export const getUniquesDates = (startDate, endDate) => {
     return uniqueDays;
 }
 
+export const getAllDates = (startDate, endDate) => {
+    let allDates = "";
+    for (let i = startDate; i <= endDate; i = i + 24 * 60 * 60 * 1000) {
+        allDates += format(new Date(i), 'yyyy-MM-dd') + ',';
+    }
+    return allDates;
+}
+
 export const formatDate = (date) => {
     return format(date, 'yyyy-MM-dd');
 }
 
 export const getMinPrice = (prices) => {
     return prices.reduce((acc, v) => +acc.price < +v.price ? acc.price : v.price);
+}
+
+export const getSumm = (dates, prices) => {
+    console.log(prices);
+    if (!dates || !prices) {
+        throw new Error('Не получены даты или цены');
+    }
+    const allDates = getAllDates(Date.parse(dates[0]), Date.parse(dates[1])).split(',');
+    let result = 0;
+    for (let priceObj of prices) {
+        console.log(priceObj)
+        const priceDate = getAllDates(Date.parse(priceObj.start_date), Date.parse(priceObj.end_date));
+        for (let date of allDates) {
+            if (date && priceDate.includes(date)) {
+
+                result += +priceObj.price;
+            }
+        }
+    }
+    return result;
 }
 
 export const jsonCustomParser = (json) => {
