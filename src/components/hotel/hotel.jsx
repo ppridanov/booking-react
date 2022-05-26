@@ -1,5 +1,5 @@
 import styles from './hotel.module.css';
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import Modal from '../modal/modal';
@@ -72,7 +72,6 @@ function Hotel() {
         });
     }
 
-    const price = useMemo(() => getSumm([startBookingDate, endBookingDate], data.prices), [startBookingDate, endBookingDate, data.prices])
 
     const handlerOnSubmitForm = (event) => {
         event.preventDefault();
@@ -96,7 +95,7 @@ function Hotel() {
                             <Slider images={data.images} openModal={handleOpenImgModal} />
                         </div>
                         <div className={styles.content__right}>
-                            <h2 className={styles.price}>Цена: {price} р.</h2>
+                            <h2 className={styles.price}>Цена: {data?.prices ? getSumm([startBookingDate, endBookingDate], data.prices) : 0} р.</h2>
                             <form className={`form ${styles.form}`} onSubmit={handlerOnSubmitForm} autoComplete="off">
                                 <div className={`form__item ${styles.form__item}`}>
                                     <label htmlFor={styles.from}>Дата заезда</label>
@@ -141,7 +140,7 @@ function Hotel() {
                                         <option value="6">10</option>
                                     </select>
                                 </div>
-                                <h4>Предоплата: {price / 2}</h4>
+                                <h4>Предоплата: {data?.prices ? (getSumm([startBookingDate, endBookingDate], data.prices) / 2) : 0}</h4>
                                 <Button type="submit">Бронировать</Button>
                             </form>
                             <Link to={`/`} style={{ marginTop: 20 }} className='button button-grey'>Вернуться назад</Link>
