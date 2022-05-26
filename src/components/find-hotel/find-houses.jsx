@@ -1,4 +1,4 @@
-import { cropTextLength, formatDate, isObjectNotEmpty, jsonCustomParser } from '../../helpers/helpers';
+import { cropTextLength, formatDate, isObjectNotEmpty, jsonCustomParser, getSumm } from '../../helpers/helpers';
 import { Link } from 'react-router-dom';
 import DatePicker from "react-datepicker";
 import ru from 'date-fns/locale/ru';
@@ -78,7 +78,9 @@ function FindHouses() {
                             </div>
                         </div>
                         <div className={styles.card__right}>
-                            <h3 className={styles.card__price}>От {item?.price} р.</h3>
+                            <h3 className={styles.card__price}>Цена: {item?.price ? getSumm([startDate, endDate], item.price) : 0} р.</h3>
+                            <h4 className={styles.card__price}>Предоплата: {item?.price ? (getSumm([startDate, endDate], item.price) / 2) : 0} р.</h4>
+
                             <Link to={`houses/${item.id}`} className='button'>Подробнее</Link>
                         </div>
                     </div>)

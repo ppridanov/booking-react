@@ -37,14 +37,12 @@ export const getMinPrice = (prices) => {
 }
 
 export const getSumm = (dates, prices) => {
-    console.log(prices);
     if (!dates || !prices) {
         throw new Error('Не получены даты или цены');
     }
     const allDates = getAllDates(Date.parse(dates[0]), Date.parse(dates[1])).split(',');
     let result = 0;
     for (let priceObj of prices) {
-        console.log(priceObj)
         const priceDate = getAllDates(Date.parse(priceObj.start_date), Date.parse(priceObj.end_date));
         for (let date of allDates) {
             if (date && priceDate.includes(date)) {
