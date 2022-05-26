@@ -59,4 +59,7 @@ label {
     label {
         margin-bottom: 0!important;
     }
+    .formItemMB label {
+        margin-left: 10px;
+    }
 }

@@ -211,4 +211,14 @@ input:hover {
   .imgModal {
     width: 100% !important;
   }
+  .button {
+    width: 100%;
+  }
+  .react-datepicker__input-container input, input, select {
+    width: 100%;
+  }
+
+  .form__item {
+    width: 100%;
+  }
 }

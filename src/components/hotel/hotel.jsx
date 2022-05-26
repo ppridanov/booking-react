@@ -15,7 +15,7 @@ import { useSelector } from 'react-redux';
 function Hotel() {
     const { houseId } = useParams();
     const { startDate, endDate } = useSelector(state => state.findHouses)
-    const [data, setData] = useState({ "id": "4", "title": "2\u0445 \u043c\u0435\u0441\u0442\u043d\u044b\u0439 \u043d\u043e\u043c\u0435\u0440", "description": "2\u0445 \u043c\u0435\u0441\u0442\u043d\u044b\u0439 \u043d\u043e\u043c\u0435\u0440 -\u0434\u043b\u044f \u0442\u0435\u0445, \u043a\u0442\u043e \u043b\u044e\u0431\u0438\u0442 \u0443\u0435\u0434\u0438\u043d\u0435\u043d\u0438\u0435.\r\n\u0412\u043c\u0435\u0441\u0442\u0438\u043c\u043e\u0441\u0442\u044c -2 \u0447\u0435\u043b\u043e\u0432\u0435\u043a\u0430. \u0414\u043e\u043f\u0443\u0441\u043a\u0430\u0435\u0442\u0441\u044f \u0434\u043e\u043f\u043e\u043b\u043d\u0438\u0442\u0435\u043b\u044c\u043d\u043e\u0435 \u0440\u0430\u0437\u043c\u0435\u0449\u0435\u043d\u0438\u0435 \u0440\u0435\u0431\u0451\u043d\u043a\u0430 \u0434\u043e 12\u0442\u0438 \u043b\u0435\u0442.\r\n\u0412 \u0434\u043e\u043c\u0435 \u0435\u0441\u0442\u044c \u0432\u0441\u0435 \u0434\u043b\u044f \u043a\u043e\u043c\u0444\u043e\u0440\u0442\u043d\u043e\u0433\u043e \u043e\u0442\u0434\u044b\u0445\u0430:\r\n\u041a\u043e\u043d\u0434\u0438\u0446\u0438\u043e\u043d\u0435\u0440\r\n\u0422\u0435\u043b\u0435\u0432\u0438\u0437\u043e\u0440\r\n\u041a\u0443\u0445\u043e\u043d\u043d\u0430\u044f \u0437\u043e\u043d\u0430 \u0441 \u043d\u0435\u043e\u0431\u0445\u043e\u0434\u0438\u043c\u043e\u0439 \u0431\u044b\u0442\u043e\u0432\u043e\u0439 \u0442\u0435\u0445\u043d\u0438\u043a\u043e\u0439 \u0438 \u043f\u043e\u0441\u0443\u0434\u043e\u0439\r\n\u0421\u0430\u043d\u0443\u0437\u0435\u043b (\u0432\u0441\u0435\u0433\u0434\u0430 \u0435\u0441\u0442\u044c \u0433\u043e\u0440\u044f\u0447\u0430\u044f \u0438 \u0445\u043e\u043b\u043e\u0434\u043d\u0430\u044f \u0432\u043e\u0434\u0430)\r\n\u041f\u043e\u0441\u0442\u0435\u043b\u044c\u043d\u044b\u0435 \u043f\u0440\u0438\u043d\u0430\u0434\u043b\u0435\u0436\u043d\u043e\u0441\u0442\u0438 \u0438 \u043f\u043e\u043b\u043e\u0442\u0435\u043d\u0446\u0430.\r\n\u041f\u0440\u043e\u0441\u0442\u043e\u0440\u043d\u0430\u044f \u0442\u0435\u0440\u0440\u0430\u0441\u0430\r\n\u0423\u0434\u0430\u043b\u0451\u043d\u043d\u043e\u0441\u0442\u044c \u043e\u0442 \u043c\u043e\u0440\u044f 200 \u043c\u0435\u0442\u0440\u043e\u0432\r\n", "images": ["https:\/\/petrovabay.ru\/upload\/medialibrary\/ae0\/ae0024764196bd0247239914648710c8.jpeg", "https:\/\/petrovabay.ru\/upload\/medialibrary\/462\/4622e35bbe14fe8e818daa7933cbb8c9.jpeg", "https:\/\/petrovabay.ru\/upload\/medialibrary\/678\/678f7b694598af51284abae756a1c24b.jpeg", "https:\/\/petrovabay.ru\/upload\/medialibrary\/4b2\/4b2e1a3d5b5dc3f87259c704fc8c7375.jpeg", "https:\/\/petrovabay.ru\/upload\/medialibrary\/2bc\/2bc26ffb928076226815dc0fc4c1d0b6.jpeg", "https:\/\/petrovabay.ru\/upload\/medialibrary\/e36\/e36f0efcb79c37a41d4d8831e74e03f0.jpeg"], "prices": [{ "start_date": "2022-04-01", "end_date": "2022-06-30", "price": "6000" }, { "start_date": "2022-07-01", "end_date": "2022-09-15", "price": "9000" }, { "start_date": "2022-09-16", "end_date": "2022-10-31", "price": "6000" }, { "start_date": "2022-11-01", "end_date": "2022-12-24", "price": "5000" }, { "start_date": "2022-12-25", "end_date": "2023-01-08", "price": "9000" }], "is_wifi": "1", "is_tv": "1", "is_cond": "1", "is_mang": "0", "status": "1" });
+    const [data, setData] = useState({});
     const [isError, setIsError] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -24,28 +24,28 @@ function Hotel() {
     const [endBookingDate, setEndDate] = useState(endDate);
     const [peoplesCount, setPeoplesCount] = useState(1);
 
-    // useEffect(() => {
-    //     sendData({
-    //         url: `${mainUrl}/houseget.php?id=${houseId}`,
-    //         method: 'GET',
-    //     })
-    //         .then((res) => {
-    //             if (res.ok) {
-    //                 return res.json();
-    //             }
-    //             throw new Error(`Something wrong: ${res.status}`)
-    //         })
-    //         .then(data => {
-    //             setIsLoading(false);
-    //             setIsError(false);
-    //             setData(data);
-    //         })
-    //         .catch((err) => {
-    //             setIsError(true);
-    //             setIsLoading(false);
-    //             console.log(err)
-    //         });
-    // }, [houseId])
+    useEffect(() => {
+        sendData({
+            url: `${mainUrl}/houseget.php?id=${houseId}`,
+            method: 'GET',
+        })
+            .then((res) => {
+                if (res.ok) {
+                    return res.json();
+                }
+                throw new Error(`Something wrong: ${res.status}`)
+            })
+            .then(data => {
+                setIsLoading(false);
+                setIsError(false);
+                setData(data);
+            })
+            .catch((err) => {
+                setIsError(true);
+                setIsLoading(false);
+                console.log(err)
+            });
+    }, [houseId])
 
     const handleOpenModal = (e) => {
         e.preventDefault();
@@ -111,7 +111,7 @@ function Hotel() {
                                         dateFormat={"yyyy-MM-dd"}
                                     />
                                 </div>
-                                <div className="form__item">
+                                <div className={`form__item ${styles.form__item}`}>
                                     <label htmlFor="to">Дата выезда</label>
                                     <DatePicker
                                         selected={endBookingDate}
@@ -125,7 +125,7 @@ function Hotel() {
                                         dateFormat={"yyyy-MM-dd"}
                                     />
                                 </div>
-                                <div className="form__item">
+                                <div className={`form__item ${styles.form__item}`}>
                                     <label htmlFor="people">Количество человек</label>
                                     <select className="input" name="people" defaultValue={1} onChange={(e) => setPeoplesCount(e.target.value)} required id="people">
                                         <option value="1">1</option>
