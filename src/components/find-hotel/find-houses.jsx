@@ -74,7 +74,7 @@ function FindHouses() {
                             <img className={styles.card__image} src={images ? images[0] : ''} alt={`Дом ${item?.id}`} />
                             <div className={styles.card__text}>
                                 <h3 className={styles.card__title}>{item.title ? item.title : 'Дом'}</h3>
-                                <p className={styles.card__subtitle}>{cropTextLength(item?.descr)}</p>
+                                <p className={styles.card__subtitle} dangerouslySetInnerHTML={{__html: cropTextLength(item?.descr)}}></p>
                             </div>
                         </div>
                         <div className={styles.card__right}>

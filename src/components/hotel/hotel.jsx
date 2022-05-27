@@ -396,9 +396,7 @@ function Hotel() {
                             )}
                         </div>
                         <h3 className={styles.descriptionTitle}>Описание</h3>
-                        <p className={styles.descriptionText}>
-                            {data.description}
-                        </p>
+                        <p className={styles.descriptionText} dangerouslySetInnerHTML={{__html: data?.description}}></p>
                     </div>
                 </section>
             )
