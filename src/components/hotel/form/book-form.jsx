@@ -1,18 +1,45 @@
-import React, { useState } from 'react';
-import styles from './book-form.module.css';
-import Button from '../../../ui/button/button';
-import Input from '../../../ui/input/input';
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import { styled } from '@mui/material/styles';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import { Box, TextField, FormGroup, Typography } from '@mui/material';
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { formatDate, getUniquesDates, sendData } from '../../../helpers/helpers';
 import { mainUrl } from '../../../helpers/variables';
-import NumberFormat from 'react-number-format';
+import ReactInputMask from 'react-input-mask';
 
-const BookForm = (props) => {
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+    '& .MuiDialogContent-root': {
+        padding: theme.spacing(2),
+    },
+    '& .MuiPaper-root': {
+        maxWidth: "470px"
+    }
+}));
+
+const BootstrapDialogTitle = (props) => {
+    const { children, onClose, ...other } = props;
+
+    return (
+        <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+            {children}
+        </DialogTitle>
+    );
+};
+
+export default function BookForm(props) {
+    const theme = useTheme();
+    const small = useMediaQuery(theme.breakpoints.down("sm"));
     const { bookingData } = props;
-    const [focused, setFocused] = React.useState(false);
 
-    const [isError, setIsError] = useState(false);
-    const [messageError, setMessageError] = useState('');
-    const [formData, setFormData] = useState({
+    const [isError, setIsError] = React.useState(true);
+    const [messageError, setMessageError] = React.useState('');
+    const [disabled, setIsDisabled] = React.useState(false);
+    const [formData, setFormData] = React.useState({
         arrival_date: formatDate(bookingData.start, 'yyyy-MM-dd'),
         departure_date: formatDate(bookingData.end, 'yyyy-MM-dd'),
         senior: '',
@@ -35,6 +62,7 @@ const BookForm = (props) => {
     const handlerOnSubmitForm = (e) => {
         e.preventDefault(e);
         setIsError(false);
+        setIsDisabled(true);
         sendData({
             url: `${mainUrl}/bookhouse.php`,
             method: 'POST',
@@ -54,6 +82,7 @@ const BookForm = (props) => {
                     return window.location.href = data.refer;
                 } else {
                     setIsError(true);
+                    setIsDisabled(false);
                     if (data.mess) {
                         setMessageError(data.mess);
                     }
@@ -61,52 +90,84 @@ const BookForm = (props) => {
             })
             .catch(err => {
                 setIsError(true);
+                setIsDisabled(false);
             });
     }
     return (
-        <>
-            <form className={styles.form} onSubmit={handlerOnSubmitForm} id="pay">
-                <div className={styles.formBlock}>
-                    <div className={`${`${styles.formItem}`} ${styles.formItemMB}  ${styles.formItemFull}`}>
-                        <label htmlFor="setStartDate">Дата заезда</label>
-                        <Input className={styles.inputFull} id="setStartDate" value={formData.arrival_date} name="arrival_date" type="text" readOnly={true} />
-                    </div>
-                    <div className={`${`${styles.formItem}`} ${styles.formItemMB}  ${styles.formItemFull}`}>
-                        <label htmlFor="setEndDate">Дата выезда</label>
-                        <Input  className={styles.inputFull} id="setEndDate" value={formData.departure_date} name="departure_date" type="text" readOnly={true} />
-                    </div>
-                    <div className={`${`${styles.formItem} ${styles.formItemFull}`}`}>
-                        <Input className={styles.inputFull} name="senior" type="text" label="ФИО" onChange={handlerOnChangeInput} value={formData.senior} required={true} />
-                    </div>
-                    <div className={`${styles.formItem} ${styles.formItemFull}`}>
-                        <label className={`customNumberLabel ${focused && 'customNumberLabelFocus'}`}>Телефон</label>
-                        <NumberFormat
-                            className="input input__full"
-                            type="tel"
-                            name="phone"
-                            value={formData.phone}
-                            onChange={handlerOnChangeInput}
-                            onFocus={(e) => setFocused(true)}
-                            onClick={(e) => setFocused(true)}
-                            format="+7 (###) ###-####"
-                            mask="_"
-                            allowEmptyFormatting={false}
-                            required={true}
-                        />
-                        {/* <Input name="phone" type="tel" label="Телефон" onChange={handlerOnChangeInput} value={formData.phone} required={true} /> */}
-                    </div>
-                    <div className={`${styles.formItem} ${styles.formItemFull}`}>
-                        <Input className={styles.inputFull} name="email" type="email" label="E-mail" onChange={handlerOnChangeInput} value={formData.email} required={true} />
-                    </div>
-                    <input id="setPeople" value={formData.peoples} type="hidden" name="people" />
-                    <input id="setHouse" value={formData.houseId} type="hidden" name="id" />
-
-                    <Button className={styles.buttonFull}>Оплатить</Button>
-                </div>
-            </form>
-            {isError && <p className={styles.status} style={{ marginTop: 10 }}>{messageError ? messageError : 'Произошла ошибка. Попробуйте повторить снова или обратитесь к администратору'}</p>}
-        </>
-    )
+        <div>
+            <BootstrapDialog
+                onClose={props.handleClose}
+                aria-labelledby="customized-dialog-title"
+                open={props.open}
+            >
+                <BootstrapDialogTitle id="customized-dialog-title" onClose={props.handleClose}>
+                    Бронирование номера
+                </BootstrapDialogTitle>
+                <DialogContent dividers>
+                    <Box
+                        component="form"
+                        sx={{
+                            '& .MuiTextField-root': { m: 1, width: '25ch' },
+                        }}
+                        autoComplete="off"
+                        onSubmit={handlerOnSubmitForm}
+                    >
+                        <div>
+                            <FormGroup row>
+                                <TextField
+                                    required
+                                    label="Дата заезда"
+                                    type="date"
+                                    disabled
+                                    style={{ width: (small) ? "100%" : "" }}
+                                    value={formData.arrival_date}
+                                />
+                                <TextField
+                                    disabled
+                                    label="Дата выезда"
+                                    type="date"
+                                    style={{ width: (small) ? "100%" : "" }}
+                                    value={formData.departure_date}
+                                />
+                            </FormGroup>
+                            <FormGroup row>
+                                <TextField
+                                    required
+                                    id="outlined-password-input"
+                                    label="ФИО"
+                                    type="text"
+                                    style={{ width: "100%" }}
+                                    value={formData.senior}
+                                    onChange={handlerOnChangeInput}
+                                    name="senior"
+                                />
+                                <ReactInputMask style={{ width: "100%" }} mask="+7 999 999 99 99" required value={formData.phone} onChange={handlerOnChangeInput} children={
+                                    <TextField
+                                        label="Телефон"
+                                        name="phone"
+                                        fullWidth
+                                    />
+                                } />
+                                <TextField
+                                    id="outlined-number"
+                                    label="Email"
+                                    type="email"
+                                    name="email"
+                                    required
+                                    style={{ width: "100%" }}
+                                />
+                            </FormGroup>
+                            <FormGroup style={{ display: "flex", justifyContent: "center" }}>
+                                <Button disabled={disabled} size='large' type="submit" id='sendForm' variant='contained'>Отправить</Button>
+                            </FormGroup>
+                        </div>
+                    </Box>
+                </DialogContent>
+                <DialogActions>
+                    {isError && <Typography variant='subtitle2' style={{color: 'red', padding: "0 10px"}}>{messageError ? messageError : 'Произошла ошибка. Попробуйте повторить снова или обратитесь к администратору'}</Typography>}
+                    <Button size='large' type="click" onClick={props.handleClose} variant='outlined'>Закрыть</Button>
+                </DialogActions>
+            </BootstrapDialog>
+        </div>
+    );
 }
-
-export default BookForm;

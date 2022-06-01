@@ -1,19 +1,25 @@
-import { cropTextLength, formatDate, isObjectNotEmpty, jsonCustomParser, getSumm } from '../../helpers/helpers';
-import { Link } from 'react-router-dom';
-import DatePicker from "react-datepicker";
-import ru from 'date-fns/locale/ru';
+import { formatDate, isObjectNotEmpty, jsonCustomParser, getSumm } from '../../helpers/helpers';
+import { Link as RouterLink } from 'react-router-dom';
 
-import "react-datepicker/dist/react-datepicker.css";
+import ruLocale from 'date-fns/locale/ru';
 import styles from './find-houses.module.css';
-import Button from '../../ui/button/button';
 import { useDispatch, useSelector } from 'react-redux';
 import { CLEAR_FIND_LIST, postFindHouses, SET_END_DATE, SET_START_DATE } from '../../services/actions/find-houses';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import TextField from '@mui/material/TextField';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { Box, Button, Card, CardActions, CardContent, CardMedia, Divider, Typography, Tooltip, IconButton } from '@mui/material';
+import AirIcon from '@mui/icons-material/Air';
+import SignalWifi4BarIcon from '@mui/icons-material/SignalWifi4Bar';
+import OutdoorGrillIcon from '@mui/icons-material/OutdoorGrill';
+import TvSharpIcon from '@mui/icons-material/TvSharp';
 
+import history from '../../history';
 
 function FindHouses() {
     const { finded, findRequest, findFailed, findLoaded, startDate, endDate, findEmpty } = useSelector(state => state.findHouses);
     const dispatch = useDispatch();
-
+    history.push(window.location.href);
     const handlerOnSubmitForm = (event) => {
         event.preventDefault();
         dispatch({ type: CLEAR_FIND_LIST })
@@ -28,73 +34,131 @@ function FindHouses() {
     const handleChangeEndDate = (date) => {
         dispatch({ type: SET_END_DATE, payload: date })
     };
-
     return (
         <div className={styles.findHotel}>
             <div className={styles.find}>
                 <form className={styles.form} onSubmit={handlerOnSubmitForm}>
-                    <DatePicker
-                        selected={startDate}
-                        onChange={(date) => handleChangeStartDate(date)}
-                        selectsStart
-                        startDate={startDate}
-                        endDate={endDate}
-                        dateFormat={"yyyy-MM-dd"}
-                        locale={ru}
-                    />
-                    <DatePicker
-                        selected={endDate}
-                        onChange={(date) => handleChangeEndDate(date)}
-                        selectsEnd
-                        startDate={startDate}
-                        endDate={endDate}
-                        minDate={startDate}
-                        dateFormat={"yyyy-MM-dd"}
-                        locale={ru}
-                    />
-                    <Button type="submit">Подобрать</Button>
+                    <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ruLocale}>
+                        <DatePicker
+                            disableMaskedInput
+                            label={'Заезд'}
+                            value={startDate}
+                            onChange={(startDate) => {
+                                handleChangeStartDate(startDate)
+                            }}
+                            minDate={startDate}
+                            inputFormat={'dd MMM yyyy'}
+                            renderInput={(params) => <><TextField {...params} /><Box mr={2} /></>}
+                        />
+                    </LocalizationProvider>
+                    <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ruLocale}>
+                        <DatePicker
+                            disableMaskedInput
+                            label={'Выезд'}
+                            value={endDate}
+                            onChange={(endDate) => {
+                                handleChangeEndDate(endDate)
+                            }}
+                            inputFormat={'dd MMM yyyy'}
+                            minDate={startDate}
+                            renderInput={(params) => <><TextField {...params} /><Box mr={2} /></>}
+                        />
+                    </LocalizationProvider>
+                    <Button variant="contained" type='submit'>Подобрать</Button>
                 </form>
             </div>
+            <Divider sx={{marginBottom: 2}} />
             <div id="findedContent" className={styles.findedContent}>
                 {(findRequest || findFailed) && (
-                    <div className={styles.dFlexCentered100}>
-                        {findRequest && !findFailed && <h1>Загрузка...</h1>}
+                    <>
+                        {findRequest && !findFailed && <Typography textAlign={'center'} variant='h5'>Загрузка...</Typography>}
                         {findFailed && !findRequest && (
                             <>
-                                <h1>Ошибка<br /><br />Обратитесь к администратору<br />или<br />повторите поиск.</h1>
+                                <Typography textAlign={'center'} variant='h5'>Ошибка<br /><br />Обратитесь к администратору<br />или<br />повторите поиск.</Typography>
                             </>
                         )}
-                        {findEmpty && !findFailed && !findRequest && (<h1>Ничего не найдено!</h1>)}
-                    </div>
+                        {findEmpty && !findFailed && !findRequest && (<Typography textAlign={'center'} variant='h5'>Ничего не найдено!</Typography>)}
+                    </>
                 )}
-                {isObjectNotEmpty(finded) && finded.map((item, index) => {
-                    const images = jsonCustomParser(item.images) || null;
-                    return (<div className={styles.card} key={index}>
-                        <div className={styles.card__left}>
-                            <img className={styles.card__image} src={images ? images[0] : ''} alt={`Дом ${item?.id}`} />
-                            <div className={styles.card__text}>
-                                <h3 className={styles.card__title}>{item.title ? item.title : 'Дом'}</h3>
-                                <p className={styles.card__subtitle} dangerouslySetInnerHTML={{__html: cropTextLength(item?.descr)}}></p>
-                            </div>
-                        </div>
-                        <div className={styles.card__right}>
-                            <h3 className={styles.card__price}>Цена: {item?.price ? getSumm([startDate, endDate], item.price) : 0} р.</h3>
-                            <h4 className={styles.card__price}>Предоплата: {item?.price ? (getSumm([startDate, endDate], item.price) / 2) : 0} р.</h4>
-
-                            <Link to={`houses/${item.id}`} className='button'>Подробнее</Link>
-                        </div>
-                    </div>)
-                })}
                 {(!isObjectNotEmpty(finded) && findLoaded) && (
                     <>
-                        <h1>На выбранные вами даты нет свободных мест.<br /><br />Попробуйте повторить поиск на другие даты.</h1>
+                        <Typography textAlign={'center'} variant='h5'>На выбранные вами даты нет свободных мест.<br /><br />Попробуйте повторить поиск на другие даты.</Typography>
                     </>
                 )}
                 {!findLoaded && !findFailed && !findRequest && (
                     <>
-                        <h1>Выберите даты въезда и выезда</h1>
+                        <Typography textAlign={'center'} variant='h5'>Выберите дату заезда и дату выезда</Typography>
                     </>
                 )}
+                {isObjectNotEmpty(finded) && finded.map((item, index) => {
+                    const images = jsonCustomParser(item.images) || null;
+                    return <Card className={styles.card} sx={{ boxShadow: 3, marginBottom: 2 }}>
+                        <CardMedia
+                            component="div"
+                            alt="green iguana"
+                            height="140"
+                            width="140"
+                            className={styles.card__image}
+                            style={{ backgroundImage: `url(${images[0]})` }}
+                        />
+                        <CardContent>
+                            <Typography gutterBottom variant="h5" component="div">{item?.title}</Typography>
+                            <Typography variant="body2" color="text.secondary">
+                                {item?.sdescr}
+                            </Typography>
+                            <Divider sx={{ marginTop: 2, marginBottom: 2 }}></Divider>
+                            <Box sx={{display: "flex"}}>
+                                {item?.is_cond === "1" && (
+                                    <Box>
+                                        <Tooltip title="Есть кондиционер" arrow enterTouchDelay={0}>
+                                            <IconButton color='inherit'>
+                                                <AirIcon />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </Box>
+                                )}
+                                {item?.is_mang === "1" && (
+                                    <Box>
+                                        <Tooltip title="Есть мангал" arrow enterTouchDelay={0}>
+                                            <IconButton color='inherit'>
+                                                <OutdoorGrillIcon />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </Box>
+                                )}
+                                {item?.is_wifi === "1" && (
+                                    <Box>
+                                        <Tooltip title="Есть Wi-Fi" arrow enterTouchDelay={0}>
+                                            <IconButton color='inherit'>
+                                                <SignalWifi4BarIcon />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </Box>
+                                )}
+                                {item?.is_tv === "1" && (
+                                    <Box>
+                                        <Tooltip title="Есть телевизор" arrow enterTouchDelay={0}>
+                                            <IconButton color='inherit'>
+                                                <TvSharpIcon />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </Box>
+                                )}
+                            </Box>
+                        </CardContent>
+                        <CardActions className={styles.cardActions}>
+                            <Typography variant="h6">
+                                Цена: {item?.price ? getSumm([startDate, endDate], item.price) : 0} р.
+                            </Typography>
+                            <Typography variant="body2" sx={{ fontWeight: "bold" }} color="text.secondary">
+                                Предоплата: {item?.price ? (getSumm([startDate, endDate], item.price) / 2) : 0} р.
+                            </Typography>
+                            <Typography mb={2} variant="body2" color="text.secondary">
+                            </Typography>
+                            <Button component={RouterLink} to={`/houses/${item?.id}`} style={{ width: "100%" }} variant="contained" type='submit'>Подробнее</Button>
+                        </CardActions>
+                    </Card>
+                })}
             </div>
         </div>
     );

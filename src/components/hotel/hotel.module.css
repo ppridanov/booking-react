@@ -63,40 +63,6 @@ label {
   font-size: 20px;
 }
 
-.params,
-.descriptionText {
-  margin: 10px 0;
-}
-
-.params__item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 5px;
-}
-
-.params__item img {
-  width: 25px;
-  margin-right: 10px;
-}
-
-.description {
-  padding: 20px;
-  margin-top: 20px;
-  border-radius: 5px;
-  background: rgba(160, 238, 250, 0.05);
-}
-
-.input {
-  width: 280px;
-  box-sizing: border-box;
-}
-
-.form__block {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
 #pay .input,
 #pay .button {
   width: 240px;
@@ -105,18 +71,6 @@ label {
 
 #pay .button {
   line-height: 40px;
-}
-
-.dFlexCentered100 {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  margin: auto;
-}
-
-.dFlexCentered100 h1 {
-  font-size: 25px;
 }
 
 .modalImage {
@@ -185,5 +139,9 @@ label {
   }
   .description {
     padding: 0 10px;
+  }
+
+  .input {
+    width: 100%
   }
 }
