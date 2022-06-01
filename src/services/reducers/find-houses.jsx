@@ -15,7 +15,7 @@ const initialState = {
     findFailed: false,
     finded: [],
     startDate: new Date(),
-    endDate: new Date(),
+    endDate: new Date().setDate(new Date().getDate() + 1),
     findEmpty: false,
     findLoaded: false
 }

@@ -1,4 +1,4 @@
-import { formatDate, isObjectNotEmpty, jsonCustomParser, getSumm } from '../../helpers/helpers';
+import { formatDate, isObjectNotEmpty, jsonCustomParser, getSumm, getNumberOfDays, declination } from '../../helpers/helpers';
 import { Link as RouterLink } from 'react-router-dom';
 
 import ruLocale from 'date-fns/locale/ru';
@@ -15,6 +15,8 @@ import OutdoorGrillIcon from '@mui/icons-material/OutdoorGrill';
 import TvSharpIcon from '@mui/icons-material/TvSharp';
 
 import history from '../../history';
+import { format } from 'date-fns';
+import { ru } from 'date-fns/locale';
 
 function FindHouses() {
     const { finded, findRequest, findFailed, findLoaded, startDate, endDate, findEmpty } = useSelector(state => state.findHouses);
@@ -34,6 +36,12 @@ function FindHouses() {
     const handleChangeEndDate = (date) => {
         dispatch({ type: SET_END_DATE, payload: date })
     };
+
+    const handleClear = (e) => {
+        console.log(e);
+        e.preventDefault();
+        dispatch({ type: CLEAR_FIND_LIST })
+    }
     return (
         <div className={styles.findHotel}>
             <div className={styles.find}>
@@ -60,14 +68,15 @@ function FindHouses() {
                                 handleChangeEndDate(endDate)
                             }}
                             inputFormat={'dd MMM yyyy'}
-                            minDate={startDate}
+                            minDate={new Date(startDate).setDate(startDate.getDate() + 1)}
                             renderInput={(params) => <><TextField {...params} /><Box mr={2} /></>}
                         />
                     </LocalizationProvider>
                     <Button variant="contained" type='submit'>Подобрать</Button>
+                    <Button className={styles.clearButton} type='click' onClick={handleClear} color="error">Очистить</Button>
                 </form>
             </div>
-            <Divider sx={{marginBottom: 2}} />
+            <Divider sx={{ marginBottom: 2 }} />
             <div id="findedContent" className={styles.findedContent}>
                 {(findRequest || findFailed) && (
                     <>
@@ -90,9 +99,14 @@ function FindHouses() {
                         <Typography textAlign={'center'} variant='h5'>Выберите дату заезда и дату выезда</Typography>
                     </>
                 )}
+                {isObjectNotEmpty(finded) && (
+                    <>
+                        <Typography variant='h6'>Результаты: <b>на {format(startDate, "MMM dd", { locale: ru })} - {format(endDate, "MMM dd, yyyy", { locale: ru })} | {getNumberOfDays(startDate, endDate)} {declination(getNumberOfDays(startDate, endDate), ['ночь', 'ночи', 'ночей'])}</b></Typography>
+                    </>
+                )}
                 {isObjectNotEmpty(finded) && finded.map((item, index) => {
                     const images = jsonCustomParser(item.images) || null;
-                    return <Card className={styles.card} sx={{ boxShadow: 3, marginBottom: 2 }}>
+                    return <Card className={styles.card} key={index} sx={{ boxShadow: 3, marginBottom: 2 }}>
                         <CardMedia
                             component="div"
                             alt="green iguana"
@@ -107,7 +121,7 @@ function FindHouses() {
                                 {item?.sdescr}
                             </Typography>
                             <Divider sx={{ marginTop: 2, marginBottom: 2 }}></Divider>
-                            <Box sx={{display: "flex"}}>
+                            <Box sx={{ display: "flex" }}>
                                 {item?.is_cond === "1" && (
                                     <Box>
                                         <Tooltip title="Есть кондиционер" arrow enterTouchDelay={0}>
