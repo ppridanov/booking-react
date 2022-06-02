@@ -35,7 +35,7 @@ const BootstrapDialogTitle = (props) => {
 export default function BookForm(props) {
     const { bookingData } = props;
 
-    const [isError, setIsError] = React.useState(true);
+    const [isError, setIsError] = React.useState(false);
     const [messageError, setMessageError] = React.useState('');
     const [disabled, setIsDisabled] = React.useState(false);
     const [formData, setFormData] = React.useState({
