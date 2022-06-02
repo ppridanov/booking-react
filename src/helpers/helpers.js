@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import { differenceInCalendarDays, format } from 'date-fns';
 
 export const sendData = async (options) => {
     return fetch(options.url, {
@@ -40,12 +40,13 @@ export const getSumm = (dates, prices) => {
     if (!dates || !prices) {
         throw new Error('Не получены даты или цены');
     }
-    const allDates = getAllDates(Date.parse(dates[0]), Date.parse(dates[1])).split(',');
     let result = 0;
+    const allDates = getAllDates(Date.parse(dates[0]), Date.parse(dates[1])).split(',');
+    const allDays = differenceInCalendarDays(dates[1], dates[0]);
     for (let priceObj of prices) {
         const priceDate = getAllDates(Date.parse(priceObj.start_date), Date.parse(priceObj.end_date));
-        for (let date of allDates) {
-            if (date && priceDate.includes(date)) {
+        for (let i = 0; i < allDays; i++) {
+            if (allDates[i] && priceDate.includes(allDates[i])) {
                 result += +priceObj.price;
             }
         }

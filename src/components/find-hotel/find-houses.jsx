@@ -108,7 +108,7 @@ function FindHouses() {
                 )}
                 {isObjectNotEmpty(finded) && (
                     <>
-                        <Typography variant='h6'>Результаты: <b>на {format(startDate, "MMM dd", { locale: ru })} - {format(endDate, "MMM dd, yyyy", { locale: ru })} | {+getNumberOfDays(startDate, endDate) + 1} {declination(+getNumberOfDays(startDate, endDate) + 1, ['день', 'дня', 'дней'])}</b></Typography>
+                        <Typography variant='h6'>Результаты: <b>на {format(startDate, "MMM dd", { locale: ru })} - {format(endDate, "MMM dd, yyyy", { locale: ru })} | {+getNumberOfDays(startDate, endDate)} {declination(+getNumberOfDays(startDate, endDate), ['ночь', 'ночи', 'ночей'])}</b></Typography>
                     </>
                 )}
                 {isObjectNotEmpty(finded) && finded.map((item, index) => {
