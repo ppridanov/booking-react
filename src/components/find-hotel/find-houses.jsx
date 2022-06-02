@@ -4,7 +4,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import ruLocale from 'date-fns/locale/ru';
 import styles from './find-houses.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { CLEAR_FIND_LIST, postFindHouses, SET_END_DATE, SET_START_DATE } from '../../services/actions/find-houses';
+import { CLEAR_FIND_LIST, postFindHouses, SET_END_DATE, SET_START_DATE, CLEAR_FINDED_STATUS } from '../../services/actions/find-houses';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import TextField from '@mui/material/TextField';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -21,6 +21,7 @@ import { useState } from 'react';
 
 function FindHouses() {
     const { finded, findRequest, findFailed, findLoaded, startDate, endDate } = useSelector(state => state.findHouses);
+    console.log("StarDate:" + startDate, "END DATE:" + endDate)
     const [findEmpty, setFindEmpty] = useState(false);
     const dispatch = useDispatch();
     history.push(window.location.href);
@@ -47,6 +48,7 @@ function FindHouses() {
     const handleClear = (e) => {
         e.preventDefault();
         dispatch({ type: CLEAR_FIND_LIST });
+        dispatch({type: CLEAR_FINDED_STATUS});
         setFindEmpty(false);
     }
     return (
@@ -75,7 +77,7 @@ function FindHouses() {
                                 handleChangeEndDate(endDate)
                             }}
                             inputFormat={'dd MMM yyyy'}
-                            minDate={new Date(startDate).setDate(startDate.getDate() + 1)}
+                            minDate={new Date(startDate)}
                             renderInput={(params) => <><TextField {...params} /><Box mr={2} /></>}
                         />
                     </LocalizationProvider>
@@ -107,7 +109,7 @@ function FindHouses() {
                 )}
                 {isObjectNotEmpty(finded) && (
                     <>
-                        <Typography variant='h6'>Результаты: <b>на {format(startDate, "MMM dd", { locale: ru })} - {format(endDate, "MMM dd, yyyy", { locale: ru })} | {getNumberOfDays(startDate, endDate)} {declination(getNumberOfDays(startDate, endDate), ['ночь', 'ночи', 'ночей'])}</b></Typography>
+                        <Typography variant='h6'>Результаты: <b>на {format(startDate, "MMM dd", { locale: ru })} - {format(endDate, "MMM dd, yyyy", { locale: ru })} | {+getNumberOfDays(startDate, endDate) + 1} {declination(+getNumberOfDays(startDate, endDate) + 1, ['день', 'дня', 'дней'])}</b></Typography>
                     </>
                 )}
                 {isObjectNotEmpty(finded) && finded.map((item, index) => {

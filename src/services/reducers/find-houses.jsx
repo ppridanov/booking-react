@@ -7,7 +7,8 @@ import {
     SET_START_DATE,
     SET_END_DATE,
     SET_FIND_EMPTY,
-    CLEAR_DATES
+    CLEAR_DATES,
+    CLEAR_FINDED_STATUS
 } from "../actions/find-houses";
 
 const initialState = {
@@ -15,7 +16,7 @@ const initialState = {
     findFailed: false,
     finded: [],
     startDate: new Date(),
-    endDate: new Date().setDate(new Date().getDate() + 1),
+    endDate: new Date(),
     findLoaded: false
 }
 
@@ -48,9 +49,13 @@ export const findHousesReducer = (state = initialState, action) => {
             return {
                 ...state,
                 finded: [],
-                findRequest: false,
+            }
+        case CLEAR_FINDED_STATUS:
+            return {
+                ...state,
+                findFailed: false,
                 findLoaded: false,
-                findFailed: false
+                findRequest: false
             }
         case SET_START_DATE:
             return {

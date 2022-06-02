@@ -10,6 +10,7 @@ export const SET_START_DATE = 'SET_START_DATE';
 export const SET_END_DATE = 'SET_END_DATE';
 export const CLEAR_DATES = 'CLEAR_DATES';
 export const SET_FIND_EMPTY = 'SET_FIND_EMPTY';
+export const CLEAR_FINDED_STATUS = 'CLEAR_FINDED_STATUS';
 
 export const postFindHouses = (dates) => {
     return function (dispatch) {
