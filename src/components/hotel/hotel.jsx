@@ -42,6 +42,7 @@ function Hotel() {
     const theme = useTheme();
     const large = useMediaQuery(theme.breakpoints.up("lg"));
     const sm = useMediaQuery(theme.breakpoints.down("sm"));
+    const medium = useMediaQuery(theme.breakpoints.down("md"));
 
     useEffect(() => {
         sendData({
@@ -123,6 +124,7 @@ function Hotel() {
                                             PopperProps={{
                                                 className: styles.desktopView,
                                             }}
+                                            style={{ width: (medium) ? "100%" : "" }}
                                             disableMaskedInput
                                             label={'Заезд'}
                                             value={startBookingDate}
@@ -140,6 +142,7 @@ function Hotel() {
                                             disableMaskedInput
                                             label={'Заезд'}
                                             value={startBookingDate}
+                                            style={{ width: (medium) ? "100%" : "" }}
                                             onChange={(date) => {
                                                 setStartDate(date)
                                             }}
@@ -268,7 +271,7 @@ function Hotel() {
             )
             }
             {modalIsOpen && <BookForm handleClose={handleCloseModal} open={modalIsOpen} bookingData={{ start: startBookingDate, end: endBookingDate, peoples: peoplesCount, houseId }} />}
-            <BigImage handleClose={handleCloseImgModal} open={imgModalIsOpen.open} image={imgModalIsOpen.imgSrc}/>
+            <BigImage handleClose={handleCloseImgModal} open={imgModalIsOpen.open} image={imgModalIsOpen.imgSrc} />
         </>
     );
 }

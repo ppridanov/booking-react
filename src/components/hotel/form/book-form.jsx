@@ -6,8 +6,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import { Box, TextField, FormGroup, Typography } from '@mui/material';
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import { formatDate, getUniquesDates, sendData } from '../../../helpers/helpers';
 import { mainUrl } from '../../../helpers/variables';
 import ReactInputMask from 'react-input-mask';
@@ -18,6 +16,9 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     },
     '& .MuiPaper-root': {
         maxWidth: "470px"
+    },
+    '& .MuiDialogActions-root': {
+        justifyContent: "space-between"
     }
 }));
 
@@ -32,8 +33,6 @@ const BootstrapDialogTitle = (props) => {
 };
 
 export default function BookForm(props) {
-    const theme = useTheme();
-    const small = useMediaQuery(theme.breakpoints.down("sm"));
     const { bookingData } = props;
 
     const [isError, setIsError] = React.useState(true);
@@ -119,14 +118,15 @@ export default function BookForm(props) {
                                     label="Дата заезда"
                                     type="date"
                                     disabled
-                                    style={{ width: (small) ? "100%" : "" }}
+                                    style={{ width: "100%" }}
                                     value={formData.arrival_date}
                                 />
                                 <TextField
+                                    required
                                     disabled
                                     label="Дата выезда"
                                     type="date"
-                                    style={{ width: (small) ? "100%" : "" }}
+                                    style={{ width: "100%" }}
                                     value={formData.departure_date}
                                 />
                             </FormGroup>
@@ -164,7 +164,7 @@ export default function BookForm(props) {
                     </Box>
                 </DialogContent>
                 <DialogActions>
-                    {isError && <Typography variant='subtitle2' style={{color: 'red', padding: "0 10px"}}>{messageError ? messageError : 'Произошла ошибка. Попробуйте повторить снова или обратитесь к администратору'}</Typography>}
+                    {isError && <Typography variant='caption' style={{ color: 'red', padding: "0 10px", width: "75%", fontSize: "10px" }}>{messageError ? messageError : 'Произошла ошибка. Попробуйте повторить снова или обратитесь к администратору'}</Typography>}
                     <Button size='large' type="click" onClick={props.handleClose} variant='outlined'>Закрыть</Button>
                 </DialogActions>
             </BootstrapDialog>
