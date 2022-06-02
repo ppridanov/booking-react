@@ -17,9 +17,11 @@ import TvSharpIcon from '@mui/icons-material/TvSharp';
 import history from '../../history';
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
+import { useState } from 'react';
 
 function FindHouses() {
-    const { finded, findRequest, findFailed, findLoaded, startDate, endDate, findEmpty } = useSelector(state => state.findHouses);
+    const { finded, findRequest, findFailed, findLoaded, startDate, endDate } = useSelector(state => state.findHouses);
+    const [findEmpty, setFindEmpty] = useState(false);
     const dispatch = useDispatch();
     history.push(window.location.href);
     const handlerOnSubmitForm = (event) => {
@@ -27,6 +29,11 @@ function FindHouses() {
         dispatch({ type: CLEAR_FIND_LIST })
         const dates = { "start_date": formatDate(startDate), "end_date": formatDate(endDate) }
         dispatch(postFindHouses(dates));
+        if (!findRequest && !findFailed && !findLoaded && !isObjectNotEmpty(finded)) {
+            setFindEmpty(true);
+        } else {
+            setFindEmpty(false);
+        }
     }
 
     const handleChangeStartDate = (date) => {
@@ -38,9 +45,9 @@ function FindHouses() {
     };
 
     const handleClear = (e) => {
-        console.log(e);
         e.preventDefault();
-        dispatch({ type: CLEAR_FIND_LIST })
+        dispatch({ type: CLEAR_FIND_LIST });
+        setFindEmpty(false);
     }
     return (
         <div className={styles.findHotel}>
@@ -86,15 +93,14 @@ function FindHouses() {
                                 <Typography textAlign={'center'} variant='h5'>Ошибка<br /><br />Обратитесь к администратору<br />или<br />повторите поиск.</Typography>
                             </>
                         )}
-                        {findEmpty && !findFailed && !findRequest && (<Typography textAlign={'center'} variant='h5'>Ничего не найдено!</Typography>)}
                     </>
                 )}
-                {(!isObjectNotEmpty(finded) && findLoaded) && (
+                {!findLoaded && !findFailed && !findRequest && findEmpty && (
                     <>
                         <Typography textAlign={'center'} variant='h5'>На выбранные вами даты нет свободных мест.<br /><br />Попробуйте повторить поиск на другие даты.</Typography>
                     </>
                 )}
-                {!findLoaded && !findFailed && !findRequest && (
+                {!findLoaded && !findFailed && !findRequest && !findEmpty && (
                     <>
                         <Typography textAlign={'center'} variant='h5'>Выберите дату заезда и дату выезда</Typography>
                     </>

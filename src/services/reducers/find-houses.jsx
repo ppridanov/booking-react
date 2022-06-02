@@ -16,7 +16,6 @@ const initialState = {
     finded: [],
     startDate: new Date(),
     endDate: new Date().setDate(new Date().getDate() + 1),
-    findEmpty: false,
     findLoaded: false
 }
 
@@ -39,7 +38,6 @@ export const findHousesReducer = (state = initialState, action) => {
                 finded: action.payload,
                 findRequest: false,
                 findFailed: false,
-                findEmpty: false,
             }
         case POST_FIND_LOADED:
             return {
@@ -50,6 +48,9 @@ export const findHousesReducer = (state = initialState, action) => {
             return {
                 ...state,
                 finded: [],
+                findRequest: false,
+                findLoaded: false,
+                findFailed: false
             }
         case SET_START_DATE:
             return {
