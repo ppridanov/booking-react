@@ -131,7 +131,7 @@ function FindHouses() {
                             <Box sx={{ display: "flex" }}>
                                 {item?.is_cond === "1" && (
                                     <Box>
-                                        <Tooltip title="Есть кондиционер" arrow enterTouchDelay={0}>
+                                        <Tooltip title="Кондиционер" arrow enterTouchDelay={0}>
                                             <IconButton color='inherit'>
                                                 <AirIcon />
                                             </IconButton>
@@ -140,7 +140,7 @@ function FindHouses() {
                                 )}
                                 {item?.is_mang === "1" && (
                                     <Box>
-                                        <Tooltip title="Есть мангал" arrow enterTouchDelay={0}>
+                                        <Tooltip title="Мангал" arrow enterTouchDelay={0}>
                                             <IconButton color='inherit'>
                                                 <OutdoorGrillIcon />
                                             </IconButton>
@@ -149,7 +149,7 @@ function FindHouses() {
                                 )}
                                 {item?.is_wifi === "1" && (
                                     <Box>
-                                        <Tooltip title="Есть Wi-Fi" arrow enterTouchDelay={0}>
+                                        <Tooltip title="Wi-Fi" arrow enterTouchDelay={0}>
                                             <IconButton color='inherit'>
                                                 <SignalWifi4BarIcon />
                                             </IconButton>
@@ -158,7 +158,7 @@ function FindHouses() {
                                 )}
                                 {item?.is_tv === "1" && (
                                     <Box>
-                                        <Tooltip title="Есть телевизор" arrow enterTouchDelay={0}>
+                                        <Tooltip title="Телевизор" arrow enterTouchDelay={0}>
                                             <IconButton color='inherit'>
                                                 <TvSharpIcon />
                                             </IconButton>

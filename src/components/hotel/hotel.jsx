@@ -26,8 +26,10 @@ import AirIcon from '@mui/icons-material/Air';
 import SignalWifi4BarIcon from '@mui/icons-material/SignalWifi4Bar';
 import OutdoorGrillIcon from '@mui/icons-material/OutdoorGrill';
 import TvSharpIcon from '@mui/icons-material/TvSharp';
+import history from '../../history';
 
 function Hotel() {
+    history.push('/bookhouse');
     const { houseId } = useParams();
     const { startDate, endDate } = useSelector(state => state.findHouses)
     const [data, setData] = useState({});
@@ -221,14 +223,17 @@ function Hotel() {
                         </Box>
                     </div>
                     <Box mt={3}>
+                        <Typography variant={large ? "h4" : "h5"} className={styles.descriptionTitle}>Описание</Typography>
+                        <Divider></Divider>
+                        <Typography variant='subtitle1' mt={2} dangerouslySetInnerHTML={{ __html: data?.description }}></Typography>
                         {(data?.is_cond === "1" || data?.is_mang === "1" || data?.is_tv === "1" || data?.is_wifi === "1") && (
-                            <Typography variant={large ? "h4" : "h5"} className={styles.descriptionTitle}>Удобства</Typography>
+                            <Typography mt={2} variant={large ? "h4" : "h5"} className={styles.descriptionTitle}>Удобства</Typography>
                         )}
                         <Divider></Divider>
                         <div className={`${styles.icons}`}>
                             {data?.is_cond === "1" && (
                                 <Box>
-                                    <Tooltip title="Есть кондиционер" arrow enterTouchDelay={0}>
+                                    <Tooltip title="Кондиционер" arrow enterTouchDelay={0}>
                                         <IconButton color='inherit'>
                                             <AirIcon />
                                         </IconButton>
@@ -237,7 +242,7 @@ function Hotel() {
                             )}
                             {data?.is_mang === "1" && (
                                 <Box>
-                                    <Tooltip title="Есть мангал" arrow enterTouchDelay={0}>
+                                    <Tooltip title="Мангал" arrow enterTouchDelay={0}>
                                         <IconButton color='inherit'>
                                             <OutdoorGrillIcon />
                                         </IconButton>
@@ -246,7 +251,7 @@ function Hotel() {
                             )}
                             {data?.is_wifi === "1" && (
                                 <Box>
-                                    <Tooltip title="Есть Wi-Fi" arrow enterTouchDelay={0}>
+                                    <Tooltip title="Wi-Fi" arrow enterTouchDelay={0}>
                                         <IconButton color='inherit'>
                                             <SignalWifi4BarIcon />
                                         </IconButton>
@@ -255,7 +260,7 @@ function Hotel() {
                             )}
                             {data?.is_tv === "1" && (
                                 <Box>
-                                    <Tooltip title="Есть телевизор" arrow enterTouchDelay={0}>
+                                    <Tooltip title="Телевизор" arrow enterTouchDelay={0}>
                                         <IconButton color='inherit'>
                                             <TvSharpIcon />
                                         </IconButton>
@@ -263,9 +268,6 @@ function Hotel() {
                                 </Box>
                             )}
                         </div>
-                        <Typography variant={large ? "h4" : "h5"} className={styles.descriptionTitle}>Описание</Typography>
-                        <Divider></Divider>
-                        <Typography variant='subtitle1' mt={2} dangerouslySetInnerHTML={{ __html: data?.description }}></Typography>
                     </Box>
                 </section>
             )
