@@ -21,7 +21,6 @@ import { useState } from 'react';
 
 function FindHouses() {
     const { finded, findRequest, findFailed, findLoaded, startDate, endDate } = useSelector(state => state.findHouses);
-    console.log("StarDate:" + startDate, "END DATE:" + endDate)
     const [findEmpty, setFindEmpty] = useState(false);
     const dispatch = useDispatch();
     history.push(window.location.href);

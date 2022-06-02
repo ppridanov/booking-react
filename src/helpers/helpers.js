@@ -47,7 +47,6 @@ export const getSumm = (dates, prices) => {
         for (let date of allDates) {
             if (date && priceDate.includes(date)) {
                 result += +priceObj.price;
-                console.log(+priceObj.price);
             }
         }
     }
