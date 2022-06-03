@@ -45,6 +45,7 @@ function Hotel() {
     const large = useMediaQuery(theme.breakpoints.up("lg"));
     const sm = useMediaQuery(theme.breakpoints.down("sm"));
     const medium = useMediaQuery(theme.breakpoints.down("md"));
+    const md = useMediaQuery(theme.breakpoints.up("md"));
 
     useEffect(() => {
         sendData({
@@ -113,6 +114,7 @@ function Hotel() {
             )}
             {(isObjectNotEmpty(data)) && (
                 <section className={styles.book}>
+                    <Typography variant={large ? 'h4' : 'h6'} textAlign={md ? "left" : "center"} mb={md ? 3 : 2}>Бронирование{md ? ": " : <br />}<span style={{fontWeight: "bold"}}>{data?.title}</span></Typography>
                     <div className={`${styles.top} ${styles.content}`}>
                         <div className={styles.content__left}>
                             <Slider images={data.images} openModal={handleOpenImgModal} />
