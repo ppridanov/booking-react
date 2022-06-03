@@ -168,10 +168,10 @@ function FindHouses() {
                             </Box>
                         </CardContent>
                         <CardActions className={styles.cardActions}>
-                            <Typography variant="h6">
+                            <Typography variant="h6" sx={{whiteSpace: "nowrap"}}>
                                 Цена: {item?.price ? getSumm([startDate, endDate], item.price) : 0} р.
                             </Typography>
-                            <Typography variant="body2" sx={{ fontWeight: "bold" }} color="text.secondary">
+                            <Typography variant="body2" sx={{ fontWeight: "bold", whiteSpace: "nowrap" }} color="text.secondary">
                                 Предоплата: {item?.price ? (getSumm([startDate, endDate], item.price) / 2) : 0} р.
                             </Typography>
                             <Typography mb={2} variant="body2" color="text.secondary">
