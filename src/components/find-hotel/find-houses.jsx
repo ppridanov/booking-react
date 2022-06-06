@@ -124,9 +124,7 @@ function FindHouses() {
                         />
                         <CardContent>
                             <Typography gutterBottom variant="h5" component="div">{item?.title}</Typography>
-                            <Typography variant="body2" color="text.secondary">
-                                {item?.sdescr}
-                            </Typography>
+                            <Typography variant="body2" color="text.secondary" dangerouslySetInnerHTML={item?.sdescr}></Typography>
                             <Divider sx={{ marginTop: 2, marginBottom: 2 }}></Divider>
                             <Box sx={{ display: "flex" }}>
                                 {item?.is_cond === "1" && (
