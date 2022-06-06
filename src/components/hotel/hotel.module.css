@@ -10,7 +10,6 @@
 }
 
 .content__left {
-  width: 500px;
   overflow: hidden;
   position: relative;
   margin: 0;
@@ -19,11 +18,7 @@
   gap: 10px;
 }
 
-.content__right {
-  padding: 20px;
-  box-shadow: 0 0 25px rgb(0 0 0 / 30%);
-  border-radius: 5px;
-}
+
 
 label {
   margin-bottom: 10px;

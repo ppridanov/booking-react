@@ -19,14 +19,11 @@ import { useSelector } from 'react-redux';
 import { DatePicker, LocalizationProvider, MobileDatePicker } from '@mui/x-date-pickers';
 import TextField from '@mui/material/TextField';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { Box, Button, Divider, FormControl, IconButton, InputLabel, MenuItem, Select, Tooltip, Typography } from '@mui/material';
+import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 import BigImage from './big-image/big-image';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import AirIcon from '@mui/icons-material/Air';
-import SignalWifi4BarIcon from '@mui/icons-material/SignalWifi4Bar';
-import OutdoorGrillIcon from '@mui/icons-material/OutdoorGrill';
-import TvSharpIcon from '@mui/icons-material/TvSharp';
 import history from '../../history';
+import { HotelDescription } from './hotel-description/hotel-description';
 
 function Hotel() {
     history.push('/bookhouse');
@@ -114,163 +111,233 @@ function Hotel() {
             )}
             {(isObjectNotEmpty(data)) && (
                 <section className={styles.book}>
-                    <Typography variant={large ? 'h4' : 'h6'} textAlign={md ? "left" : "center"} mb={md ? 3 : 2}>Бронирование{md ? ": " : <br />}<span style={{fontWeight: "bold"}}>{data?.title}</span></Typography>
+                    <Typography variant={large ? 'h4' : 'h6'} textAlign={md ? "left" : "center"} mb={md ? 3 : 2}>Бронирование{md ? ": " : <br />}<span style={{ fontWeight: "bold" }}>{data?.title}</span></Typography>
                     <div className={`${styles.top} ${styles.content}`}>
-                        <div className={styles.content__left}>
-                            <Slider images={data.images} openModal={handleOpenImgModal} />
-                        </div>
-                        <Box p={3} sx={{ boxShadow: 3 }} mb={large ? 0 : 2}>
-                            <Typography variant={large ? 'h5' : 'h6'} textAlign="center" mb={3}>Цена: {data?.prices ? getSumm([startBookingDate, endBookingDate], data.prices) : 0} р.</Typography>
-                            <form className={`form ${styles.form}`} onSubmit={handlerOnSubmitForm} autoComplete="off">
-                                <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ruLocale}>
-                                    {sm ? (
-                                        <MobileDatePicker
-                                            PopperProps={{
-                                                className: styles.desktopView,
-                                            }}
-                                            style={{ width: (medium) ? "100%" : "" }}
-                                            disableMaskedInput
-                                            label={'Заезд'}
-                                            value={startBookingDate}
-                                            onChange={(date) => {
-                                                setStartDate(date)
-                                            }}
-                                            onError={(event) => { handleError(event); }}
-                                            className="custom-date-input"
-                                            inputFormat={'dd MMM yyyy'}
-                                            minDate={startBookingDate}
-                                            renderInput={(params) => <><TextField fullWidth {...params} /><Box mb={2} /></>}
-                                        />
-                                    ) : (
-                                        <DatePicker
-                                            disableMaskedInput
-                                            label={'Заезд'}
-                                            value={startBookingDate}
-                                            style={{ width: (medium) ? "100%" : "" }}
-                                            onChange={(date) => {
-                                                setStartDate(date)
-                                            }}
-                                            onError={(event) => { handleError(event); }}
-                                            className={'wtf'}
-                                            inputFormat={'dd MMM yyyy'}
-                                            minDate={startDate}
-                                            renderInput={(params) => <><TextField {...params} /><Box mb={2} /></>}
-                                        />
-                                    )}
-                                </LocalizationProvider>
-                                <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ruLocale}>
-                                    {sm ? (
-                                        <MobileDatePicker
-                                            PopperProps={{
-                                                className: styles.desktopView,
-                                            }}
-                                            onError={(event) => { handleError(event); }}
-                                            disableMaskedInput
-                                            label={'Выезд'}
-                                            value={endBookingDate}
-                                            onChange={(date) => {
-                                                setEndDate(date)
-                                            }}
-                                            className="custom-date-input"
-                                            inputFormat={'dd MMM yyyy'}
-                                            minDate={startBookingDate}
-                                            renderInput={(params) => <><TextField fullWidth {...params} /><Box mb={2} /></>}
-                                        />
-                                    ) : (
-                                        <DatePicker
-                                            disableMaskedInput
-                                            label={'Выезд'}
-                                            value={endBookingDate}
-                                            onChange={(date) => {
-                                                setEndDate(date)
-                                            }}
-                                            onError={(event) => { handleError(event); }}
-                                            className="custom-date-input"
-                                            inputFormat={'dd MMM yyyy'}
-                                            minDate={startBookingDate}
-                                            renderInput={(params) => <><TextField {...params} /><Box mb={2} /></>}
-                                        />
-                                    )}
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} md={8}>
+                                {medium && (
+                                    <Grid item xs={12} md={4}>
+                                        <Box p={3} sx={{ boxShadow: 3, position: "sticky", top: 20 }} mb={large ? 0 : 2}>
+                                            <Typography variant={large ? 'h5' : 'h6'} textAlign="center" mb={3}>Цена: {data?.prices ? getSumm([startBookingDate, endBookingDate], data.prices) : 0} р.</Typography>
+                                            <form className={`form ${styles.form}`} onSubmit={handlerOnSubmitForm} autoComplete="off">
+                                                <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ruLocale}>
+                                                    {medium ? (
+                                                        <MobileDatePicker
+                                                            PopperProps={{
+                                                                className: styles.desktopView,
+                                                            }}
+                                                            style={{ width: (medium) ? "100%" : "" }}
+                                                            disableMaskedInput
+                                                            label={'Заезд'}
+                                                            value={startBookingDate}
+                                                            onChange={(date) => {
+                                                                setStartDate(date)
+                                                            }}
+                                                            onError={(event) => { handleError(event); }}
+                                                            className="custom-date-input"
+                                                            inputFormat={'dd MMM yyyy'}
+                                                            minDate={startBookingDate}
+                                                            renderInput={(params) => <><TextField fullWidth {...params} /><Box mb={2} /></>}
+                                                        />
+                                                    ) : (
+                                                        <DatePicker
+                                                            disableMaskedInput
+                                                            label={'Заезд'}
+                                                            value={startBookingDate}
+                                                            style={{ width: (medium) ? "100%" : "" }}
+                                                            onChange={(date) => {
+                                                                setStartDate(date)
+                                                            }}
+                                                            onError={(event) => { handleError(event); }}
+                                                            className={'wtf'}
+                                                            inputFormat={'dd MMM yyyy'}
+                                                            minDate={startDate}
+                                                            renderInput={(params) => <><TextField {...params} /><Box mb={2} /></>}
+                                                        />
+                                                    )}
+                                                </LocalizationProvider>
+                                                <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ruLocale}>
+                                                    {medium ? (
+                                                        <MobileDatePicker
+                                                            PopperProps={{
+                                                                className: styles.desktopView,
+                                                            }}
+                                                            onError={(event) => { handleError(event); }}
+                                                            disableMaskedInput
+                                                            label={'Выезд'}
+                                                            value={endBookingDate}
+                                                            onChange={(date) => {
+                                                                setEndDate(date)
+                                                            }}
+                                                            className="custom-date-input"
+                                                            inputFormat={'dd MMM yyyy'}
+                                                            minDate={startBookingDate}
+                                                            renderInput={(params) => <><TextField fullWidth {...params} /><Box mb={2} /></>}
+                                                        />
+                                                    ) : (
+                                                        <DatePicker
+                                                            disableMaskedInput
+                                                            label={'Выезд'}
+                                                            value={endBookingDate}
+                                                            onChange={(date) => {
+                                                                setEndDate(date)
+                                                            }}
+                                                            onError={(event) => { handleError(event); }}
+                                                            className="custom-date-input"
+                                                            inputFormat={'dd MMM yyyy'}
+                                                            minDate={startBookingDate}
+                                                            renderInput={(params) => <><TextField {...params} /><Box mb={2} /></>}
+                                                        />
+                                                    )}
 
-                                </LocalizationProvider>
-                                <FormControl fullWidth>
-                                    <InputLabel id="demo-simple-select-label">Количество человек</InputLabel>
-                                    <Select
-                                        defaultValue={peoplesCount}
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
-                                        value={peoplesCount}
-                                        label="Количество человек"
-                                        onChange={(e) => setPeoplesCount(e.target.value)}
-                                    >
-                                        <MenuItem value={1}>1</MenuItem>
-                                        <MenuItem value={2}>2</MenuItem>
-                                        <MenuItem value={3}>3</MenuItem>
-                                        <MenuItem value={4}>4</MenuItem>
-                                        <MenuItem value={5}>5</MenuItem>
-                                        <MenuItem value={6}>6</MenuItem>
-                                        <MenuItem value={7}>7</MenuItem>
-                                        <MenuItem value={8}>8</MenuItem>
-                                        <MenuItem value={9}>9</MenuItem>
-                                        <MenuItem value={10}>10</MenuItem>
+                                                </LocalizationProvider>
+                                                <FormControl fullWidth>
+                                                    <InputLabel id="demo-simple-select-label">Количество человек</InputLabel>
+                                                    <Select
+                                                        defaultValue={peoplesCount}
+                                                        labelId="demo-simple-select-label"
+                                                        id="demo-simple-select"
+                                                        value={peoplesCount}
+                                                        label="Количество человек"
+                                                        onChange={(e) => setPeoplesCount(e.target.value)}
+                                                    >
+                                                        <MenuItem value={1}>1</MenuItem>
+                                                        <MenuItem value={2}>2</MenuItem>
+                                                        <MenuItem value={3}>3</MenuItem>
+                                                        <MenuItem value={4}>4</MenuItem>
+                                                        <MenuItem value={5}>5</MenuItem>
+                                                        <MenuItem value={6}>6</MenuItem>
+                                                        <MenuItem value={7}>7</MenuItem>
+                                                        <MenuItem value={8}>8</MenuItem>
+                                                        <MenuItem value={9}>9</MenuItem>
+                                                        <MenuItem value={10}>10</MenuItem>
 
-                                    </Select>
-                                </FormControl>
-                                <Typography variant={large ? 'h5' : 'h6'} textAlign={"center"} mt={1} mb={1}>Предоплата: {data?.prices ? (getSumm([startBookingDate, endBookingDate], data.prices) / 2) : 0}</Typography>
-                                <Button disabled={disabledButton} type="submit" fullWidth variant='contained'>Бронировать</Button>
-                            </form>
-                            <Box mt={2}>
-                                <Button component={RouterLink} fullWidth variant={'outlined'} to={'/'}><KeyboardBackspaceIcon /></Button>
-                            </Box>
-                        </Box>
+                                                    </Select>
+                                                </FormControl>
+                                                <Typography variant={large ? 'h5' : 'h6'} textAlign={"center"} mt={1} mb={1}>Предоплата: {data?.prices ? (getSumm([startBookingDate, endBookingDate], data.prices) / 2) : 0}</Typography>
+                                                <Button disabled={disabledButton} type="submit" fullWidth variant='contained'>Бронировать</Button>
+                                            </form>
+                                            <Box mt={2}>
+                                                <Button component={RouterLink} fullWidth variant={'outlined'} to={'/'}><KeyboardBackspaceIcon /></Button>
+                                            </Box>
+                                        </Box>
+                                    </Grid>
+                                )}
+                                <div className={styles.content__left}>
+                                    <Slider images={data.images} openModal={handleOpenImgModal} />
+                                </div>
+                                <HotelDescription data={data} />
+                            </Grid>
+                            {md && (
+                                <Grid item xs={12} md={4}>
+                                    <Box p={3} sx={{ boxShadow: 3, position: "sticky", top: 20 }} mb={large ? 0 : 2}>
+                                        <Typography variant={large ? 'h5' : 'h6'} textAlign="center" mb={3}>Цена: {data?.prices ? getSumm([startBookingDate, endBookingDate], data.prices) : 0} р.</Typography>
+                                        <form className={`form ${styles.form}`} onSubmit={handlerOnSubmitForm} autoComplete="off">
+                                            <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ruLocale}>
+                                                {sm ? (
+                                                    <MobileDatePicker
+                                                        PopperProps={{
+                                                            className: styles.desktopView,
+                                                        }}
+                                                        style={{ width: (medium) ? "100%" : "" }}
+                                                        disableMaskedInput
+                                                        label={'Заезд'}
+                                                        value={startBookingDate}
+                                                        onChange={(date) => {
+                                                            setStartDate(date)
+                                                        }}
+                                                        onError={(event) => { handleError(event); }}
+                                                        className="custom-date-input"
+                                                        inputFormat={'dd MMM yyyy'}
+                                                        minDate={startBookingDate}
+                                                        renderInput={(params) => <><TextField fullWidth {...params} /><Box mb={2} /></>}
+                                                    />
+                                                ) : (
+                                                    <DatePicker
+                                                        disableMaskedInput
+                                                        label={'Заезд'}
+                                                        value={startBookingDate}
+                                                        style={{ width: (medium) ? "100%" : "" }}
+                                                        onChange={(date) => {
+                                                            setStartDate(date)
+                                                        }}
+                                                        onError={(event) => { handleError(event); }}
+                                                        className={'wtf'}
+                                                        inputFormat={'dd MMM yyyy'}
+                                                        minDate={startDate}
+                                                        renderInput={(params) => <><TextField {...params} /><Box mb={2} /></>}
+                                                    />
+                                                )}
+                                            </LocalizationProvider>
+                                            <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ruLocale}>
+                                                {sm ? (
+                                                    <MobileDatePicker
+                                                        PopperProps={{
+                                                            className: styles.desktopView,
+                                                        }}
+                                                        onError={(event) => { handleError(event); }}
+                                                        disableMaskedInput
+                                                        label={'Выезд'}
+                                                        value={endBookingDate}
+                                                        onChange={(date) => {
+                                                            setEndDate(date)
+                                                        }}
+                                                        className="custom-date-input"
+                                                        inputFormat={'dd MMM yyyy'}
+                                                        minDate={startBookingDate}
+                                                        renderInput={(params) => <><TextField fullWidth {...params} /><Box mb={2} /></>}
+                                                    />
+                                                ) : (
+                                                    <DatePicker
+                                                        disableMaskedInput
+                                                        label={'Выезд'}
+                                                        value={endBookingDate}
+                                                        onChange={(date) => {
+                                                            setEndDate(date)
+                                                        }}
+                                                        onError={(event) => { handleError(event); }}
+                                                        className="custom-date-input"
+                                                        inputFormat={'dd MMM yyyy'}
+                                                        minDate={startBookingDate}
+                                                        renderInput={(params) => <><TextField {...params} /><Box mb={2} /></>}
+                                                    />
+                                                )}
+
+                                            </LocalizationProvider>
+                                            <FormControl fullWidth>
+                                                <InputLabel id="demo-simple-select-label">Количество человек</InputLabel>
+                                                <Select
+                                                    defaultValue={peoplesCount}
+                                                    labelId="demo-simple-select-label"
+                                                    id="demo-simple-select"
+                                                    value={peoplesCount}
+                                                    label="Количество человек"
+                                                    onChange={(e) => setPeoplesCount(e.target.value)}
+                                                >
+                                                    <MenuItem value={1}>1</MenuItem>
+                                                    <MenuItem value={2}>2</MenuItem>
+                                                    <MenuItem value={3}>3</MenuItem>
+                                                    <MenuItem value={4}>4</MenuItem>
+                                                    <MenuItem value={5}>5</MenuItem>
+                                                    <MenuItem value={6}>6</MenuItem>
+                                                    <MenuItem value={7}>7</MenuItem>
+                                                    <MenuItem value={8}>8</MenuItem>
+                                                    <MenuItem value={9}>9</MenuItem>
+                                                    <MenuItem value={10}>10</MenuItem>
+
+                                                </Select>
+                                            </FormControl>
+                                            <Typography variant={large ? 'h5' : 'h6'} textAlign={"center"} mt={1} mb={1}>Предоплата: {data?.prices ? (getSumm([startBookingDate, endBookingDate], data.prices) / 2) : 0}</Typography>
+                                            <Button disabled={disabledButton} type="submit" fullWidth variant='contained'>Бронировать</Button>
+                                        </form>
+                                        <Box mt={2}>
+                                            <Button component={RouterLink} fullWidth variant={'outlined'} to={'/'}><KeyboardBackspaceIcon /></Button>
+                                        </Box>
+                                    </Box>
+                                </Grid>
+                            )}
+                        </Grid>
                     </div>
-                    <Box mt={3}>
-                        <Typography variant={large ? "h4" : "h5"} className={styles.descriptionTitle}>Описание</Typography>
-                        <Divider></Divider>
-                        <Typography variant='subtitle1' mt={2} dangerouslySetInnerHTML={{ __html: data?.description }}></Typography>
-                        {(data?.is_cond === "1" || data?.is_mang === "1" || data?.is_tv === "1" || data?.is_wifi === "1") && (
-                            <Typography mt={2} variant={large ? "h4" : "h5"} className={styles.descriptionTitle}>Удобства</Typography>
-                        )}
-                        <Divider></Divider>
-                        <div className={`${styles.icons}`}>
-                            {data?.is_cond === "1" && (
-                                <Box>
-                                    <Tooltip title="Кондиционер" arrow enterTouchDelay={0}>
-                                        <IconButton color='inherit'>
-                                            <AirIcon />
-                                        </IconButton>
-                                    </Tooltip>
-                                </Box>
-                            )}
-                            {data?.is_mang === "1" && (
-                                <Box>
-                                    <Tooltip title="Мангал" arrow enterTouchDelay={0}>
-                                        <IconButton color='inherit'>
-                                            <OutdoorGrillIcon />
-                                        </IconButton>
-                                    </Tooltip>
-                                </Box>
-                            )}
-                            {data?.is_wifi === "1" && (
-                                <Box>
-                                    <Tooltip title="Wi-Fi" arrow enterTouchDelay={0}>
-                                        <IconButton color='inherit'>
-                                            <SignalWifi4BarIcon />
-                                        </IconButton>
-                                    </Tooltip>
-                                </Box>
-                            )}
-                            {data?.is_tv === "1" && (
-                                <Box>
-                                    <Tooltip title="Телевизор" arrow enterTouchDelay={0}>
-                                        <IconButton color='inherit'>
-                                            <TvSharpIcon />
-                                        </IconButton>
-                                    </Tooltip>
-                                </Box>
-                            )}
-                        </div>
-                    </Box>
                 </section>
             )
             }

@@ -1,5 +1,5 @@
 .bgImg {
-  height: 340px;
+  height: 354px;
   background-size: cover;
   background-position: center;
 }
@@ -18,7 +18,7 @@
 
   .bgImgThumbs {
     height: 100px;
-    width: 120px;
+    width: 100%;
     border-radius: 5px;
   }
 }
