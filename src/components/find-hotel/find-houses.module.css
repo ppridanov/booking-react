@@ -50,6 +50,7 @@
 
     .card {
         display: block;
+        max-width: 395px;
     }
 
     .card__image {
@@ -62,6 +63,8 @@
     .findedContent {
         display: flex;
         flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
     }
     .cardActions {
         width: auto;
